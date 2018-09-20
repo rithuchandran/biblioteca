@@ -67,13 +67,28 @@ class LibraryManagementSystemTest {
         verify(LibraryOutputDriver).print("Welcome to Biblioteca!");
         verify(LibraryOutputDriver).print("Select an option");
         verify(LibraryOutputDriver).print("Display list of books - 1");
-        verify(LibraryOutputDriver).print("Welcome to Biblioteca!");
         verify(LibraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
         verify(LibraryOutputDriver).print("-------------------------------------------------------------------------------------------------------");
         verify(LibraryOutputDriver).print(book1);
         verify(LibraryOutputDriver).print(book2);
         verify(LibraryOutputDriver).print(book3);
+    }
 
+    @DisplayName("Should show error message for wrong option")
+    @Test
+    void testWrongOption(){
+        LibraryManagementSystem libraryManagementSystem = new LibraryManagementSystem(LibraryOutputDriver, LibraryInputDriver);
+        when(LibraryInputDriver.getInput()).thenReturn("1");
+        libraryManagementSystem.start();
+
+        verify(LibraryOutputDriver).print("Welcome to Biblioteca!");
+        verify(LibraryOutputDriver).print("Select an option");
+        verify(LibraryOutputDriver).print("Display list of books - 1");
+        verify(LibraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
+        verify(LibraryOutputDriver).print("-------------------------------------------------------------------------------------------------------");
+        verify(LibraryOutputDriver).print(book1);
+        verify(LibraryOutputDriver).print(book2);
+        verify(LibraryOutputDriver).print(book3);
     }
 
 }

@@ -18,6 +18,8 @@ public enum Menu {
                 libraryOutputDriver.print(token[0] + "\t\t\t\t\t" + token[1] + "\t\t\t\t\t\t" + token[2]);
             }
         }
-    };
+    },
+    QUIT;
+
      void doAction(OutputDriver libraryOutputDriver, Library library){}
 }

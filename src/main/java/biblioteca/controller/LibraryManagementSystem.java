@@ -22,11 +22,21 @@ public class LibraryManagementSystem {
 
     public void start() {
         libraryOutputDriver.print(WELCOME_MESSAGE);
-        HashMap<Integer,Menu> menuMap = new HashMap<>();
-        menuMap.put(1,Menu.LIST_BOOKS);
+        HashMap<Integer, Menu> menuMap = new HashMap<>();
+        menuMap.put(1, Menu.LIST_BOOKS);
+        menuMap.put(0,Menu.QUIT);
         printMenu();
-        int option = Integer.valueOf(libraryInputDriver.getInput());
-        menuMap.get(option).doAction(libraryOutputDriver,library);
+        int option;
+        do {
+            option = Integer.valueOf(libraryInputDriver.getInput());
+            while (!menuMap.containsKey(option)) {
+                libraryOutputDriver.print("Select a valid option!");
+                option = Integer.valueOf(libraryInputDriver.getInput());
+            }
+            menuMap.get(option).doAction(libraryOutputDriver, library);
+        }
+        while(option !=0);
+
     }
 
 
