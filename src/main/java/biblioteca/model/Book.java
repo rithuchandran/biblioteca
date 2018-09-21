@@ -13,9 +13,15 @@ public class Book {
         this.yearOfPublication = yearOfPublication;
     }
 
+    public Book(String title){
+        this.title = title;
+        this.author = "default author";
+        this.yearOfPublication = 0;
+    }
+
     @Override
     public String toString() {
-        return String.valueOf(title +"," + author +","+ yearOfPublication);
+        return String.format("%-53s%-30s%-8s",title, author, yearOfPublication);
     }
 
     @Override

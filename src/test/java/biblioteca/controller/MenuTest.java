@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
 public class MenuTest {
     private OutputDriver libraryOutputDriver;
     private InputDriver libraryInputDriver;
+    private Library library;
     private String book1 = "";
     private String book2 = "";
     private String book3 = "";
@@ -22,21 +23,29 @@ public class MenuTest {
     void initialize() {
         libraryOutputDriver = mock(OutputDriver.class);
         libraryInputDriver = mock(LibraryInputDriver.class);
-        book1 = "Harry Potter and the philosopher's stone\t\t\t\t\tJ K Rowling\t\t\t\t\t\t1997";
-        book2 = "Harry Potter and the chamber of secrets\t\t\t\t\tJ K Rowling\t\t\t\t\t\t1998";
-        book3 = "Harry Potter and the prisoner of azkaban\t\t\t\t\tJ K Rowling\t\t\t\t\t\t1999";
+        library = mock(Library.class);
+        book1 = String.format("%-53s%-30s%-8s","Harry Potter and the philosopher's stone","J K Rowling","1997");
+        book2 = String.format("%-53s%-30s%-8s","Harry Potter and the chamber of secrets","J K Rowling","1998");
+        book3 = String.format("%-53s%-30s%-8s","Harry Potter and the prisoner of azkaban","J K Rowling","1999");
     }
-    @DisplayName("Should display a list of books after displaying welcome message")
+
+    @DisplayName("Should display a list of books ")
     @Test
-    void testDoAction() {
-
-        when(libraryInputDriver.getInput()).thenReturn("1");
-
-        Menu.LIST_BOOKS.doAction(libraryOutputDriver,new Library());
+    void testDoActionForListingBooks() {
+        Menu.LIST_BOOKS.doAction(libraryOutputDriver,libraryInputDriver,new Library());
 
         verify(libraryOutputDriver).print(book1);
         verify(libraryOutputDriver).print(book2);
         verify(libraryOutputDriver).print(book3);
 
+    }
+
+    @DisplayName("Should call checkoutBook when user wants to checkout a book ")
+    @Test
+    void testDoActionForCheckout() {
+        when(libraryInputDriver.getInput()).thenReturn("Harry Potter and the philosopher's stone");
+        Menu.CHECKOUT_ITEM.doAction(libraryOutputDriver,libraryInputDriver,library);
+
+        verify(library).checkout("Harry Potter and the philosopher's stone");
     }
 }

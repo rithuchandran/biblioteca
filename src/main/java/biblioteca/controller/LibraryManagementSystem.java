@@ -13,19 +13,34 @@ public class LibraryManagementSystem {
     private final OutputDriver libraryOutputDriver;
     private final InputDriver libraryInputDriver;
     private final Library library;
+    private final HashMap<Integer, Menu> menuMap;
 
     public LibraryManagementSystem(OutputDriver outputDriver, InputDriver libraryInputDriver) {
         libraryOutputDriver = outputDriver;
         this.libraryInputDriver = libraryInputDriver;
         library = new Library();
+        menuMap = new HashMap<>();
+        createMenuMap();
+    }
+
+    private void createMenuMap() {
+        menuMap.put(0, Menu.QUIT);
+        menuMap.put(1, Menu.LIST_BOOKS);
+        menuMap.put(2, Menu.CHECKOUT_ITEM);
     }
 
     public void start() {
         libraryOutputDriver.print(WELCOME_MESSAGE);
-        HashMap<Integer, Menu> menuMap = new HashMap<>();
-        menuMap.put(1, Menu.LIST_BOOKS);
-        menuMap.put(0,Menu.QUIT);
         printMenu();
+        doMenuAction();
+    }
+
+    private void printMenu() {
+        libraryOutputDriver.print(MENU_MESSAGE);
+        libraryOutputDriver.print(MENU);
+    }
+
+    private void doMenuAction() {
         int option;
         do {
             option = Integer.valueOf(libraryInputDriver.getInput());
@@ -33,17 +48,9 @@ public class LibraryManagementSystem {
                 libraryOutputDriver.print("Select a valid option!");
                 option = Integer.valueOf(libraryInputDriver.getInput());
             }
-            menuMap.get(option).doAction(libraryOutputDriver, library);
+            menuMap.get(option).doAction(libraryOutputDriver, libraryInputDriver, library);
         }
-        while(option !=0);
-
+        while (option != 0);
     }
-
-
-    private void printMenu() {
-        libraryOutputDriver.print(MENU_MESSAGE);
-        libraryOutputDriver.print(MENU);
-    }
-
 
 }
