@@ -31,7 +31,21 @@ public enum Menu {
             libraryOutputDriver.print("Thank you! Enjoy the book");
         }
     },
+    RETURN_ITEM{
+        @Override
+        void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library){
+            libraryOutputDriver.print("Enter the title of the book you want to return: ");
+            String bookToBeReturned = libraryInputDriver.getInput();
+            if(!library.returnBook(bookToBeReturned)){
+                libraryOutputDriver.print("That is not a valid book to return");
+                return;
+            }
+            libraryOutputDriver.print("Thank you for returning the book");
+        }
+    },
     QUIT;
+
+
 
     void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
     }

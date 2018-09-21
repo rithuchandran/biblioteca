@@ -27,6 +27,19 @@ class LibraryManagementSystemTest {
         book3 = String.format("%-53s%-30s%-8s","Harry Potter and the prisoner of azkaban","J K Rowling","1999");
     }
 
+    private void verifyBookListColumn() {
+        verify(libraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
+        verify(libraryOutputDriver).print("-------------------------------------------------------------------" +
+                "------------------------------------");
+    }
+
+    private void verifyWelcomeAndMenu() {
+        verify(libraryOutputDriver).print("Welcome to Biblioteca!");
+        verify(libraryOutputDriver).print("Select an option :");
+        verify(libraryOutputDriver).print("Press 1 to display list of books\n" +
+                "Press 2 to checkout a book\n" + "Press 3 to return a book\n" + "Press 0 to quit!\n");
+    }
+
     @DisplayName("Should display a welcome message upon starting the application")
     @Test
     void testDisplayWelcomeMessage() {
@@ -45,13 +58,8 @@ class LibraryManagementSystemTest {
         when(libraryInputDriver.getInput()).thenReturn("1").thenReturn("0");
         libraryManagementSystem.start();
 
-        verify(libraryOutputDriver).print("Welcome to Biblioteca!");
-        verify(libraryOutputDriver).print("Select an option :");
-        verify(libraryOutputDriver).print("Press 1 to display list of books\n" +
-                 "Press 2 to checkout a book\n" + "Press 0 to quit!\n");
-        verify(libraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
-        verify(libraryOutputDriver).print("---------------------------------------------------------------" +
-                "----------------------------------------");
+        verifyWelcomeAndMenu();
+        verifyBookListColumn();
         verify(libraryOutputDriver).print(book1);
         verify(libraryOutputDriver).print(book2);
         verify(libraryOutputDriver).print(book3);
@@ -62,15 +70,10 @@ class LibraryManagementSystemTest {
     void testWrongOption() {
         LibraryManagementSystem libraryManagementSystem =
                 new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
-        when(libraryInputDriver.getInput()).thenReturn("3").thenReturn("1").thenReturn("0");
+        when(libraryInputDriver.getInput()).thenReturn("6").thenReturn("1").thenReturn("0");
         libraryManagementSystem.start();
-        verify(libraryOutputDriver).print("Welcome to Biblioteca!");
-        verify(libraryOutputDriver).print("Select an option :");
-        verify(libraryOutputDriver).print("Press 1 to display list of books\n" +
-                "Press 2 to checkout a book\n" + "Press 0 to quit!\n");
-        verify(libraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
-        verify(libraryOutputDriver).print("-----------------------------------------------------------------" +
-                "--------------------------------------");
+        verifyWelcomeAndMenu();
+        verifyBookListColumn();
         verify(libraryOutputDriver).print(book1);
         verify(libraryOutputDriver).print(book2);
         verify(libraryOutputDriver).print(book3);
@@ -83,16 +86,14 @@ class LibraryManagementSystemTest {
                 new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("2").
                 thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("1").thenReturn("0");
+
         libraryManagementSystem.start();
-        verify(libraryOutputDriver).print("Welcome to Biblioteca!");
-        verify(libraryOutputDriver).print("Select an option :");
-        verify(libraryOutputDriver).print("Press 1 to display list of books\n" +
-                "Press 2 to checkout a book\n" + "Press 0 to quit!\n");
+
+        verifyWelcomeAndMenu();
         verify(libraryOutputDriver).print("Enter the title of the book you want to checkout: ");
         verify(libraryOutputDriver).print("Thank you! Enjoy the book");
-        verify(libraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
-        verify(libraryOutputDriver).print("-------------------------------------------------------------------" +
-                "------------------------------------");
+
+        verifyBookListColumn();
         verify(libraryOutputDriver).print(book1);
         verify(libraryOutputDriver).print(book2);
     }
@@ -104,18 +105,84 @@ class LibraryManagementSystemTest {
                 new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("2").
                 thenReturn("Head first java").thenReturn("1").thenReturn("0");
+
         libraryManagementSystem.start();
-        verify(libraryOutputDriver).print("Welcome to Biblioteca!");
-        verify(libraryOutputDriver).print("Select an option :");
-        verify(libraryOutputDriver).print("Press 1 to display list of books\n" +
-                "Press 2 to checkout a book\n" + "Press 0 to quit!\n");
+
+        verifyWelcomeAndMenu();
         verify(libraryOutputDriver).print("Enter the title of the book you want to checkout: ");
         verify(libraryOutputDriver).print("That book is not available");
-        verify(libraryOutputDriver).print("\t\t\t\t\t\tTitle\t\t\t\t\t\t|\t\t\tAuthor\t\t\t|\tYear Published\t");
-        verify(libraryOutputDriver).print("-------------------------------------------------------------------" +
-                "------------------------------------");
+
+        verifyBookListColumn();
         verify(libraryOutputDriver).print(book1);
         verify(libraryOutputDriver).print(book2);
         verify(libraryOutputDriver).print(book3);
     }
+
+    @DisplayName("Should add book to the library after returning")
+    @Test
+    void testReturn() {
+        LibraryManagementSystem libraryManagementSystem =
+                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
+        when(libraryInputDriver.getInput()).thenReturn("2").
+                thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("3").
+                thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("1").thenReturn("0");
+
+        libraryManagementSystem.start();
+
+        verifyWelcomeAndMenu();
+
+        verify(libraryOutputDriver).print("Enter the title of the book you want to checkout: ");
+        verify(libraryOutputDriver).print("Thank you! Enjoy the book");
+        verify(libraryOutputDriver).print("Enter the title of the book you want to return: ");
+        verifyBookListColumn();
+        verify(libraryOutputDriver).print(book1);
+        verify(libraryOutputDriver).print(book2);
+        verify(libraryOutputDriver).print(book3);
+    }
+
+    @DisplayName("Should display success message after returning")
+    @Test
+    void testSuccessfulReturn() {
+        LibraryManagementSystem libraryManagementSystem =
+                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
+        when(libraryInputDriver.getInput()).thenReturn("2").
+                thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("3").
+                thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("1").thenReturn("0");
+
+        libraryManagementSystem.start();
+
+        verifyWelcomeAndMenu();
+
+        verify(libraryOutputDriver).print("Enter the title of the book you want to checkout: ");
+        verify(libraryOutputDriver).print("Thank you! Enjoy the book");
+
+        verify(libraryOutputDriver).print("Enter the title of the book you want to return: ");
+        verify(libraryOutputDriver).print("Thank you for returning the book");
+        verifyBookListColumn();
+        verify(libraryOutputDriver).print(book1);
+        verify(libraryOutputDriver).print(book2);
+        verify(libraryOutputDriver).print(book3);
+    }
+
+    @DisplayName("Should display success message after returning")
+    @Test
+    void testUnsuccessfulReturn() {
+        LibraryManagementSystem libraryManagementSystem =
+                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
+        when(libraryInputDriver.getInput()).thenReturn("3").
+                thenReturn("Harry Potter").thenReturn("1").thenReturn("0");
+
+        libraryManagementSystem.start();
+
+        verifyWelcomeAndMenu();
+
+        verify(libraryOutputDriver).print("Enter the title of the book you want to return: ");
+        verify(libraryOutputDriver).print("That is not a valid book to return");
+        verifyBookListColumn();
+        verify(libraryOutputDriver).print(book1);
+        verify(libraryOutputDriver).print(book2);
+        verify(libraryOutputDriver).print(book3);
+
+    }
+
 }

@@ -43,4 +43,18 @@ class LibraryTest {
                 String.format("%-53s%-30s%-8s\n", "Harry Potter and the chamber of secrets", "J K Rowling", "1998");
         assertEquals(result, library.getBookTitles());
     }
+
+    @DisplayName("Should return the book list after checkout")
+    @Test
+    void testReturn() {
+        Library library = new Library();
+        library.checkout("Harry Potter and the prisoner of azkaban");
+        assertFalse(library.contains("Harry Potter and the prisoner of azkaban"));
+        library.returnBook("Harry Potter and the prisoner of azkaban");
+        String result2 = String.format("%-53s%-30s%-8s\n", "Harry Potter and the philosopher's stone", "J K Rowling", "1997") +
+                String.format("%-53s%-30s%-8s\n", "Harry Potter and the chamber of secrets", "J K Rowling", "1998") +
+                String.format("%-53s%-30s%-8s\n", "Harry Potter and the prisoner of azkaban", "J K Rowling", "1999");
+        assertEquals(result2, library.getBookTitles());
+
+    }
 }

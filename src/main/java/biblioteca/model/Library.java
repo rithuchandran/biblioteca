@@ -29,4 +29,13 @@ public class Library {
     boolean contains(String bookTitle) {
         return availableBookList.contains(new Book(bookTitle));
     }
+
+    public boolean returnBook(String bookToBeReturned) {
+        if(!bookList.contains(new Book(bookToBeReturned))){
+            return false;
+        }
+        int index = bookList.indexOf(new Book(bookToBeReturned));
+        availableBookList.add(bookList.get(index));
+        return true;
+    }
 }

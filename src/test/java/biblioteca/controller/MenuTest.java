@@ -45,7 +45,15 @@ public class MenuTest {
     void testDoActionForCheckout() {
         when(libraryInputDriver.getInput()).thenReturn("Harry Potter and the philosopher's stone");
         Menu.CHECKOUT_ITEM.doAction(libraryOutputDriver,libraryInputDriver,library);
-
+        verify(libraryOutputDriver).print("Enter the title of the book you want to checkout: ");
         verify(library).checkout("Harry Potter and the philosopher's stone");
+    }
+
+    @DisplayName("Should call returnBook when user wants to checkout a book ")
+    @Test
+    void testDoActionForReturn() {
+        when(libraryInputDriver.getInput()).thenReturn("Harry Potter and the philosopher's stone");
+        Menu.RETURN_ITEM.doAction(libraryOutputDriver,libraryInputDriver,library);
+        verify(library).returnBook("Harry Potter and the philosopher's stone");
     }
 }
