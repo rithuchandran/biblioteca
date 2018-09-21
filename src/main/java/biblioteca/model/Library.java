@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> bookList = new ArrayList<>();
+    private List<Book> checkedOutBookList ;
     private List<Book> availableBookList;
 
     public Library() {
-        bookList.add(new Book("Harry Potter and the philosopher's stone", "J K Rowling", 1997));
-        bookList.add(new Book("Harry Potter and the chamber of secrets", "J K Rowling", 1998));
-        bookList.add(new Book("Harry Potter and the prisoner of azkaban", "J K Rowling", 1999));
-        availableBookList = new ArrayList<>(bookList);
+        availableBookList = new ArrayList<>();
+        checkedOutBookList = new ArrayList<>();
+        availableBookList.add(new Book("Harry Potter and the philosopher's stone", "J K Rowling", 1997));
+        availableBookList.add(new Book("Harry Potter and the chamber of secrets", "J K Rowling", 1998));
+        availableBookList.add(new Book("Harry Potter and the prisoner of azkaban", "J K Rowling", 1999));
     }
 
     public String getBookTitles() {
@@ -22,20 +23,23 @@ public class Library {
         return bookTitles.toString();
     }
 
-    public boolean checkout(String bookToBeCheckedOut) {
+    public boolean checkout(final String bookToBeCheckedOut) {
+        final int index = availableBookList.indexOf(new Book(bookToBeCheckedOut));
+        checkedOutBookList.add(availableBookList.get(index));
         return availableBookList.remove(new Book(bookToBeCheckedOut));
     }
 
-    boolean contains(String bookTitle) {
+    boolean contains(final String bookTitle) {
         return availableBookList.contains(new Book(bookTitle));
     }
 
-    public boolean returnBook(String bookToBeReturned) {
-        if(!bookList.contains(new Book(bookToBeReturned))){
+    public boolean returnBook(final String bookToBeReturned) {
+        if(!checkedOutBookList.contains(new Book(bookToBeReturned))){
             return false;
         }
-        int index = bookList.indexOf(new Book(bookToBeReturned));
-        availableBookList.add(bookList.get(index));
+        final int index = checkedOutBookList.indexOf(new Book(bookToBeReturned));
+        availableBookList.add(checkedOutBookList.get(index));
+        checkedOutBookList.remove(checkedOutBookList.get(index));
         return true;
     }
 }
