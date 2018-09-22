@@ -1,12 +1,26 @@
 package biblioteca.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
+import static biblioteca.model.Book.aBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class BookTest {
+
+    private ArrayList<LibraryObject> availableList = new ArrayList<>();
+
+    @BeforeEach
+    void initialize() {
+        availableList.add(new Book("Harry Potter and the philosopher's stone", "J K Rowling", 1997));
+        availableList.add(new Book("Harry Potter and the chamber of secrets", "J K Rowling", 1998));
+        availableList.add(new Book("Harry Potter and the prisoner of azkaban", "J K Rowling", 1999));
+    }
+
     @DisplayName("Should return title of the book")
     @Test
     void testToStringOfBook(){
@@ -34,7 +48,17 @@ class BookTest {
     @Test()
     void  testNotEqualsForDifferentClasses(){
         Book book1 = new Book("Head first java", "author", 0);
-        assertNotEquals(book1,new Library());
+        assertNotEquals(book1,new Library(new ArrayList<>()));
+    }
+
+    @DisplayName("Should return a list of available books")
+    @Test
+    void testGetTitleForBook() {
+        String book1 = String.format("%-55s%-35s%-10s", "Harry Potter and the philosopher's stone", "J K Rowling", "1997");
+        String book2 = String.format("%-55s%-35s%-10s", "Harry Potter and the chamber of secrets", "J K Rowling", "1998");
+        String book3 = String.format("%-55s%-35s%-10s", "Harry Potter and the prisoner of azkaban", "J K Rowling", "1999");
+        String result = book1 + "\n" + book2 + "\n" + book3 + "\n";
+        assertEquals(result, aBook().getTitle(availableList));
     }
 
 }

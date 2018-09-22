@@ -1,13 +1,20 @@
 package biblioteca.controller;
 
 import biblioteca.TestHelper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 class LibraryManagementSystemTest extends TestHelper {
+    private LibraryManagementSystem libraryManagementSystem;
+
+    @BeforeEach
+    void initialise() {
+        libraryManagementSystem = new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver, libraryObjects);
+    }
 
     private void verifyWelcomeAndMenu() {
         verify(libraryOutputDriver).print("Welcome to Biblioteca!");
@@ -27,20 +34,17 @@ class LibraryManagementSystemTest extends TestHelper {
     }
 
     @DisplayName("Should display a welcome message upon starting the application")
-    @org.junit.jupiter.api.Test
+    @Test
     void testDisplayWelcomeMessage() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("0");
         libraryManagementSystem.start();
         verify(libraryOutputDriver).print("Welcome to Biblioteca!");
     }
 
     @DisplayName("Should display menu after welcome message")
-    @org.junit.jupiter.api.Test
+    @Test
     void testDisplayMenu() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
+
         when(libraryInputDriver.getInput()).thenReturn("1").thenReturn("0");
         libraryManagementSystem.start();
 
@@ -52,12 +56,11 @@ class LibraryManagementSystemTest extends TestHelper {
     }
 
     @DisplayName("Should show error message for wrong option")
-    @org.junit.jupiter.api.Test
+    @Test
     void testWrongOption() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("6").thenReturn("1").thenReturn("0");
         libraryManagementSystem.start();
+
         verifyWelcomeAndMenu();
         verifyBookListColumn();
         verify(libraryOutputDriver).print(book1);
@@ -66,10 +69,8 @@ class LibraryManagementSystemTest extends TestHelper {
     }
 
     @DisplayName("Should show updated list after checking out Harry Potter and the prisoner of azkaban")
-    @org.junit.jupiter.api.Test
+    @Test
     void testCheckout() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("2").
                 thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("1").thenReturn("0");
 
@@ -82,13 +83,13 @@ class LibraryManagementSystemTest extends TestHelper {
         verifyBookListColumn();
         verify(libraryOutputDriver).print(book1);
         verify(libraryOutputDriver).print(book2);
+        verify(libraryOutputDriver,never()).print(book3);
+
     }
 
     @DisplayName("Should display message if selected book is not available")
-    @org.junit.jupiter.api.Test
+    @Test
     void testCheckoutForUnavailableBook() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("2").
                 thenReturn("Head first java").thenReturn("1").thenReturn("0");
 
@@ -104,11 +105,9 @@ class LibraryManagementSystemTest extends TestHelper {
         verify(libraryOutputDriver).print(book3);
     }
 
-    @DisplayName("Should add book to the library after returning")
-    @org.junit.jupiter.api.Test
+    @DisplayName("Should add book to the libraryMock after returning")
+    @Test
     void testReturn() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("2").
                 thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("3").
                 thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("1").thenReturn("0");
@@ -127,10 +126,8 @@ class LibraryManagementSystemTest extends TestHelper {
     }
 
     @DisplayName("Should display success message after returning")
-    @org.junit.jupiter.api.Test
+    @Test
     void testSuccessfulReturn() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("2").
                 thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("3").
                 thenReturn("Harry Potter and the prisoner of azkaban").thenReturn("1").thenReturn("0");
@@ -151,10 +148,8 @@ class LibraryManagementSystemTest extends TestHelper {
     }
 
     @DisplayName("Should display success message after returning")
-    @org.junit.jupiter.api.Test
+    @Test
     void testUnsuccessfulReturn() {
-        LibraryManagementSystem libraryManagementSystem =
-                new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver);
         when(libraryInputDriver.getInput()).thenReturn("3").
                 thenReturn("Harry Potter").thenReturn("1").thenReturn("0");
 
@@ -172,9 +167,8 @@ class LibraryManagementSystemTest extends TestHelper {
     }
 
     @DisplayName("Should display a list of movies")
-    @org.junit.jupiter.api.Test
-    void testListMovies(){
-        LibraryManagementSystem libraryManagementSystem = new LibraryManagementSystem(libraryOutputDriver,libraryInputDriver);
+    @Test
+    void testListMovies() {
         when(libraryInputDriver.getInput()).thenReturn("4").thenReturn("0");
 
         libraryManagementSystem.start();
@@ -184,6 +178,22 @@ class LibraryManagementSystemTest extends TestHelper {
         verify(libraryOutputDriver).print(movie1);
         verify(libraryOutputDriver).print(movie2);
         verify(libraryOutputDriver).print(movie3);
+    }
+
+    @DisplayName("Should checkout the movie up")
+    @Test
+    void testCheckoutMovie() {
+        when(libraryInputDriver.getInput()).thenReturn("5").thenReturn("Up").thenReturn("4").thenReturn("0");
+
+        libraryManagementSystem.start();
+
+        verifyWelcomeAndMenu();
+        verify(libraryOutputDriver).print("Enter the title of the movie you want to checkout: ");
+
+        verifyMovieListColumn();
+        verify(libraryOutputDriver).print(movie2);
+        verify(libraryOutputDriver).print(movie3);
+        verify(libraryOutputDriver,never()).print(movie1);
     }
 
 }

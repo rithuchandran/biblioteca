@@ -1,10 +1,11 @@
 package biblioteca.controller;
 
 import biblioteca.model.Library;
+import biblioteca.model.LibraryObject;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
-import java.util.HashMap;
+import java.util.List;
 
 import static biblioteca.common.Constants.*;
 
@@ -13,22 +14,11 @@ public class LibraryManagementSystem {
     private final OutputDriver libraryOutputDriver;
     private final InputDriver libraryInputDriver;
     private final Library library;
-    private final HashMap<Integer, Menu> menuMap;
 
-    public LibraryManagementSystem(OutputDriver outputDriver, InputDriver libraryInputDriver) {
+    public LibraryManagementSystem(OutputDriver outputDriver, InputDriver libraryInputDriver, List<LibraryObject> libraryObjects) {
         libraryOutputDriver = outputDriver;
         this.libraryInputDriver = libraryInputDriver;
-        library = new Library();
-        menuMap = new HashMap<>();
-        createMenuMap();
-    }
-
-    private void createMenuMap() {
-        menuMap.put(0, Menu.QUIT);
-        menuMap.put(1, Menu.LIST_BOOKS);
-        menuMap.put(2, Menu.CHECKOUT_BOOK);
-        menuMap.put(3, Menu.RETURN_BOOK);
-        menuMap.put(4,Menu.LIST_MOVIES);
+        library = new Library(libraryObjects);
     }
 
     public void start() {
@@ -46,13 +36,13 @@ public class LibraryManagementSystem {
         int option;
         do {
             option = Integer.valueOf(libraryInputDriver.getInput());
-            while (!menuMap.containsKey(option)) {
+            while (option<0 || option > 5){
                 libraryOutputDriver.print("Select a valid option!");
                 option = Integer.valueOf(libraryInputDriver.getInput());
             }
-            menuMap.get(option).doAction(libraryOutputDriver, libraryInputDriver, library);
+            Menu.values()[option].doAction(libraryOutputDriver, libraryInputDriver, library);
         }
-        while (menuMap.get(option) != Menu.QUIT);
+        while (Menu.values()[option] != Menu.QUIT);
     }
 
 }
