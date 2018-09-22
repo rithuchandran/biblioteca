@@ -2,7 +2,7 @@ package biblioteca.model;
 
 import java.util.Objects;
 
-public class Book {
+public class Book implements LibraryObject{
     private final String title;
     private final String author;
     private final int yearOfPublication;
@@ -19,7 +19,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("%-53s%-30s%-8s",title, author, yearOfPublication);
+        return String.format("%-55s%-35s%-10s",title, author, yearOfPublication);
     }
 
     @Override

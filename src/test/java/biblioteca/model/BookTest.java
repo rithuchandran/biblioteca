@@ -11,7 +11,7 @@ class BookTest {
     @Test
     void testToStringOfBook(){
         Book book = new Book("Head first java", "author", 0);
-        assertEquals(String.format("%-53s%-30s%-8s","Head first java", "author", "0"),book.toString());
+        assertEquals(String.format("%-55s%-35s%-10s","Head first java", "author", "0"),book.toString());
     }
 
     @DisplayName("Should expect two books with same title to be equal")

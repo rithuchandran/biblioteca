@@ -26,8 +26,9 @@ public class LibraryManagementSystem {
     private void createMenuMap() {
         menuMap.put(0, Menu.QUIT);
         menuMap.put(1, Menu.LIST_BOOKS);
-        menuMap.put(2, Menu.CHECKOUT_ITEM);
-        menuMap.put(3, Menu.RETURN_ITEM);
+        menuMap.put(2, Menu.CHECKOUT_BOOK);
+        menuMap.put(3, Menu.RETURN_BOOK);
+        menuMap.put(4,Menu.LIST_MOVIES);
     }
 
     public void start() {

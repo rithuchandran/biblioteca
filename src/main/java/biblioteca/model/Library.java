@@ -4,42 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> checkedOutBookList ;
-    private List<Book> availableBookList;
+
+    private List<LibraryObject> checkedOutList;
+    private List<LibraryObject> availableList;
 
     public Library() {
-        availableBookList = new ArrayList<>();
-        checkedOutBookList = new ArrayList<>();
-        availableBookList.add(new Book("Harry Potter and the philosopher's stone", "J K Rowling", 1997));
-        availableBookList.add(new Book("Harry Potter and the chamber of secrets", "J K Rowling", 1998));
-        availableBookList.add(new Book("Harry Potter and the prisoner of azkaban", "J K Rowling", 1999));
+        availableList = new ArrayList<>();
+        checkedOutList = new ArrayList<>();
+        initializeBooks();
+        initializeMovies();
     }
 
-    public String getBookTitles() {
-        StringBuilder bookTitles = new StringBuilder();
-        for (Book book : availableBookList) {
-            bookTitles.append(book).append("\n");
-        }
-        return bookTitles.toString();
+    private void initializeMovies() {
+        availableList.add(new Movie("Up","Peter Docter,Bob Peterson",2009,8.3));
+        availableList.add(new Movie("Big Hero 6", "Don Hall, Chris Williams", 2014, 7.9));
+        availableList.add(new Movie("Wreck-It Ralph","Rick Moore",2012,7.8));
+    }
+
+    private void initializeBooks() {
+        availableList.add(new Book("Harry Potter and the philosopher's stone", "J K Rowling", 1997));
+        availableList.add(new Book("Harry Potter and the chamber of secrets", "J K Rowling", 1998));
+        availableList.add(new Book("Harry Potter and the prisoner of azkaban", "J K Rowling", 1999));
+    }
+
+    public String getTitles(Type type) {
+        return type.getTitle(availableList);
     }
 
     public boolean checkout(final String bookToBeCheckedOut) {
-        final int index = availableBookList.indexOf(new Book(bookToBeCheckedOut));
-        checkedOutBookList.add(availableBookList.get(index));
-        return availableBookList.remove(new Book(bookToBeCheckedOut));
+        if(!availableList.contains(new Book(bookToBeCheckedOut))){
+            return false;
+        }
+        final int index = availableList.indexOf(new Book(bookToBeCheckedOut));
+        checkedOutList.add(availableList.get(index));
+        return availableList.remove(new Book(bookToBeCheckedOut));
     }
 
     boolean contains(final String bookTitle) {
-        return availableBookList.contains(new Book(bookTitle));
+        return availableList.contains(new Book(bookTitle));
     }
 
     public boolean returnBook(final String bookToBeReturned) {
-        if(!checkedOutBookList.contains(new Book(bookToBeReturned))){
+        if(!checkedOutList.contains(new Book(bookToBeReturned))){
             return false;
         }
-        final int index = checkedOutBookList.indexOf(new Book(bookToBeReturned));
-        availableBookList.add(checkedOutBookList.get(index));
-        checkedOutBookList.remove(checkedOutBookList.get(index));
+        final int index = checkedOutList.indexOf(new Book(bookToBeReturned));
+        availableList.add(checkedOutList.get(index));
+        checkedOutList.remove(checkedOutList.get(index));
         return true;
     }
 }
