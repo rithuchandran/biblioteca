@@ -14,9 +14,7 @@ public class Book {
     }
 
     public Book(String title){
-        this.title = title;
-        this.author = "default author";
-        this.yearOfPublication = 0;
+       this(title,"0",0);
     }
 
     @Override

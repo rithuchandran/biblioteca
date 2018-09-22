@@ -28,7 +28,6 @@ public class LibraryManagementSystem {
         menuMap.put(1, Menu.LIST_BOOKS);
         menuMap.put(2, Menu.CHECKOUT_ITEM);
         menuMap.put(3, Menu.RETURN_ITEM);
-
     }
 
     public void start() {
@@ -52,7 +51,7 @@ public class LibraryManagementSystem {
             }
             menuMap.get(option).doAction(libraryOutputDriver, libraryInputDriver, library);
         }
-        while (option != 0);
+        while (menuMap.get(option) != Menu.QUIT);
     }
 
 }
