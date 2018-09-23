@@ -2,6 +2,7 @@ package biblioteca.controller;
 
 import biblioteca.model.Library;
 import biblioteca.model.LibraryObject;
+import biblioteca.model.User;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
@@ -13,13 +14,13 @@ public class ReturnCommand implements Command{
     }
 
     @Override
-    public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
-        libraryOutputDriver.print("Enter the title of the book you want to return: ");
-        String bookToBeReturned = libraryInputDriver.getInput();
-        if(!library.returnObject(bookToBeReturned)){
-            libraryOutputDriver.print("That is not a valid book to return");
+    public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library, User user) {
+        libraryOutputDriver.println(String.format("Enter the title of the %s you want to return: ",libraryObject.getType()));
+        String libraryObjectToBeReturned = libraryInputDriver.getInput();
+        if(!library.returnObject(libraryObject.withTitle(libraryObjectToBeReturned))){
+            libraryOutputDriver.println(String.format("That is not a valid %s to return",libraryObject.getType()));
             return;
         }
-        libraryOutputDriver.print("Thank you for returning the book");
+        libraryOutputDriver.println(String.format("Thank you for returning the %s",libraryObject.getType()));
     }
 }

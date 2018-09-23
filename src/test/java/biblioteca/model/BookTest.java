@@ -1,5 +1,6 @@
 package biblioteca.model;
 
+import biblioteca.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,12 +11,12 @@ import static biblioteca.model.Book.aBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class BookTest {
+class BookTest extends TestHelper {
 
     private ArrayList<LibraryObject> availableList = new ArrayList<>();
 
     @BeforeEach
-    void initialize() {
+    void initialise() {
         availableList.add(new Book("Harry Potter and the philosopher's stone", "J K Rowling", 1997));
         availableList.add(new Book("Harry Potter and the chamber of secrets", "J K Rowling", 1998));
         availableList.add(new Book("Harry Potter and the prisoner of azkaban", "J K Rowling", 1999));
@@ -40,15 +41,14 @@ class BookTest {
     @Test()
     void  testNotEqualsForNullValue(){
         Book book1 = new Book("Head first java", "author", 0);
-        Book book2 = null;
-        assertNotEquals(book1,book2);
+        assertNotEquals(book1,null);
     }
 
     @DisplayName("Should expect null book to be unequal")
     @Test()
     void  testNotEqualsForDifferentClasses(){
         Book book1 = new Book("Head first java", "author", 0);
-        assertNotEquals(book1,new Library(new ArrayList<>()));
+        assertNotEquals(book1,new Library(new ArrayList<>(), users));
     }
 
     @DisplayName("Should return a list of available books")

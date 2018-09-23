@@ -4,6 +4,7 @@ import biblioteca.TestHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static biblioteca.model.Book.aBook;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -15,6 +16,6 @@ public class ReturnCommandTest extends TestHelper {
 
         Menu.RETURN_BOOK.doAction(libraryOutputDriver, libraryInputDriver, libraryMock);
 
-        verify(libraryMock).returnObject("Harry Potter and the philosopher's stone");
+        verify(libraryMock).returnObject(aBook().withTitle("Harry Potter and the philosopher's stone"));
     }
 }

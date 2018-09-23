@@ -1,26 +1,31 @@
 package biblioteca.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
-import static biblioteca.model.Book.aBook;
+import java.util.Set;
 
 public class Library {
 
     private List<LibraryObject> checkedOutList;
     private List<LibraryObject> availableList;
+    private Set<User> userSet;
+    private Set<User> loggedInUserSet;
 
-    public Library(List<LibraryObject> libraryObjects) {
+
+    public Library(List<LibraryObject> libraryObjects, Set<User> users) {
         availableList = new ArrayList<>(libraryObjects);
+        this.userSet = users;
         checkedOutList = new ArrayList<>();
+        loggedInUserSet = new HashSet<>();
     }
 
-    public String getTitles(LibraryObject libraryObject) {
+    public String getTitles(final LibraryObject libraryObject) {
         return libraryObject.getTitle(availableList);
     }
 
-    public boolean checkout(LibraryObject libraryObject) {
-        if(!availableList.contains(libraryObject)){
+    public boolean checkout(final LibraryObject libraryObject) {
+        if (!availableList.contains(libraryObject)) {
             return false;
         }
         final int index = availableList.indexOf(libraryObject);
@@ -28,13 +33,28 @@ public class Library {
         return availableList.remove(libraryObject);
     }
 
-    public boolean returnObject(final String bookToBeReturned) {
-        if(!checkedOutList.contains(aBook().withTitle(bookToBeReturned))){
+    public boolean returnObject(final LibraryObject libraryObject) {
+        if (!checkedOutList.contains(libraryObject)) {
             return false;
         }
-        final int index = checkedOutList.indexOf(aBook().withTitle(bookToBeReturned));
+        final int index = checkedOutList.indexOf(libraryObject);
         availableList.add(checkedOutList.get(index));
         checkedOutList.remove(checkedOutList.get(index));
         return true;
+    }
+
+    public boolean login(final User user) {
+        if (!userSet.contains(user)) {
+            return false;
+        }
+        if (!user.isRightPassword(userSet)) {
+            return false;
+        }
+        loggedInUserSet.add(user);
+        return true;
+    }
+
+    public boolean isLoggedIn(final User user) {
+        return loggedInUserSet.contains(user);
     }
 }

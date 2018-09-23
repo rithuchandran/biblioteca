@@ -14,11 +14,11 @@ public class ListCommandTest extends TestHelper {
     @Test
     void testDoActionForListingBooks() {
         Menu.LIST_BOOKS.doAction(libraryOutputDriver, libraryInputDriver, library);
-        verify(libraryOutputDriver).print(BOOK_COLUMNS);
-        verify(libraryOutputDriver).print(LINE);
-        verify(libraryOutputDriver).print(book1);
-        verify(libraryOutputDriver).print(book2);
-        verify(libraryOutputDriver).print(book3);
+        verify(libraryOutputDriver).println(BOOK_COLUMNS);
+        verify(libraryOutputDriver).println(LINE);
+        verify(libraryOutputDriver).println(book1);
+        verify(libraryOutputDriver).println(book2);
+        verify(libraryOutputDriver).println(book3);
 
     }
 
@@ -27,11 +27,11 @@ public class ListCommandTest extends TestHelper {
     void testDoActionForListingMovies() {
         Menu.LIST_MOVIES.doAction(libraryOutputDriver, libraryInputDriver, library);
 
-        verify(libraryOutputDriver).print(MOVIE_COLUMNS);
-        verify(libraryOutputDriver).print(LINE);
-        verify(libraryOutputDriver).print(movie1);
-        verify(libraryOutputDriver).print(movie2);
-        verify(libraryOutputDriver).print(movie3);
+        verify(libraryOutputDriver).println(MOVIE_COLUMNS);
+        verify(libraryOutputDriver).println(LINE);
+        verify(libraryOutputDriver).println(movie1);
+        verify(libraryOutputDriver).println(movie2);
+        verify(libraryOutputDriver).println(movie3);
 
     }
 }

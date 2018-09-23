@@ -3,7 +3,12 @@ package biblioteca.view;
 public class LibraryOutputDriver implements OutputDriver {
 
     @Override
-    public void print(String object) {
-        System.out.println(object);
+    public void println(String string) {
+        System.out.println(string);
+    }
+
+    @Override
+    public void print(String string) {
+        System.out.print(string);
     }
 }

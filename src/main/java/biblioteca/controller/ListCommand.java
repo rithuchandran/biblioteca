@@ -2,6 +2,7 @@ package biblioteca.controller;
 
 import biblioteca.model.Library;
 import biblioteca.model.LibraryObject;
+import biblioteca.model.User;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
@@ -15,12 +16,12 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
-        libraryOutputDriver.print(libraryObject.getColumn());
-        libraryOutputDriver.print(LINE);
+    public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library, User user) {
+        libraryOutputDriver.println(libraryObject.getColumn());
+        libraryOutputDriver.println(LINE);
         String[] books = library.getTitles(libraryObject).split("\n");
         for (String book : books) {
-            libraryOutputDriver.print(book);
+            libraryOutputDriver.println(book);
         }
     }
 }
