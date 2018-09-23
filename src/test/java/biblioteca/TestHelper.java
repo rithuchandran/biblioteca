@@ -36,10 +36,10 @@ public class TestHelper {
         libraryInputDriver = mock(LibraryInputDriver.class);
         libraryMock = mock(Library.class);
         libraryObjects = new ArrayList<>();
-        user = new User("123-4567", "password1");
+        user = new User("123-4567", "password1", "user1", "user1@mail.com", 1234567891);
         users.add(user);
-        users.add(new User("234-5678", "password2"));
-        users.add(new User("345-6789", "password3"));
+        users.add(new User("234-5678", "password2",  "user2", "user2@mail.com", 1234567892));
+        users.add(new User("345-6789", "password3",  "user3", "user3@mail.com", 1234567893));
 
         libraryObjects.add(new Movie("Up","Peter Docter,Bob Peterson",2009,8.3));
         libraryObjects.add(new Movie("Big Hero 6", "Don Hall, Chris Williams", 2014, 7.9));

@@ -25,11 +25,11 @@ public class LibraryManagementSystem {
 
     public void start() {
         libraryOutputDriver.println(WELCOME_MESSAGE);
-        printMenu();
         doMenuAction();
     }
 
     private void printMenu() {
+        libraryOutputDriver.println("");
         libraryOutputDriver.println(MENU_MESSAGE);
         libraryOutputDriver.println(MENU);
     }
@@ -37,9 +37,11 @@ public class LibraryManagementSystem {
     private void doMenuAction() {
         int option;
         do {
+            printMenu();
             option = Integer.valueOf(libraryInputDriver.getInput());
-            while (option<0 || option > 7){
+            while (option<0 || option > 8){
                 libraryOutputDriver.println("Select a valid option!");
+                printMenu();
                 option = Integer.valueOf(libraryInputDriver.getInput());
             }
             Menu.values()[option].doAction(libraryOutputDriver, libraryInputDriver, library);

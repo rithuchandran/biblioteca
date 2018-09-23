@@ -9,21 +9,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class LoginCommandTest extends TestHelper {
+class LoginCommandTest extends TestHelper {
     @DisplayName("should print success message for successful login")
     @Test
-    void testLogin(){
+    void testLogin() {
         when(libraryInputDriver.getInput()).thenReturn("123-4567").thenReturn("password1");
-        Menu.LOGIN.doAction(libraryOutputDriver,libraryInputDriver,library);
+        Command command = new LoginCommand();
+
+        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+
         assertTrue(library.isLoggedIn(user));
         verify(libraryOutputDriver).println("You are now logged in");
     }
 
     @DisplayName("should print message for unsuccessful login")
     @Test
-    void testUnsuccessfulLogin(){
+    void testUnsuccessfulLogin() {
         when(libraryInputDriver.getInput()).thenReturn("123-4670").thenReturn("password1");
-        Menu.LOGIN.doAction(libraryOutputDriver,libraryInputDriver,library);
+        Command command = new LoginCommand();
+
+        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+
         assertFalse(library.isLoggedIn(user));
         verify(libraryOutputDriver).println("Login unsuccessful! Incorrect library number/ password");
     }

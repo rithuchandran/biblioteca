@@ -17,7 +17,8 @@ public enum Menu {
     LIST_MOVIES(new ListCommand(aMovie())),
     CHECKOUT_MOVIE(new AuthorisedCommand(new CheckoutCommand(aMovie()))),
     RETURN_MOVIE(new AuthorisedCommand(new ReturnCommand(aMovie()))),
-    LOGIN(new LoginCommand());
+    LOGIN(new LoginCommand()),
+    DISPLAY_INFORMATION(new AuthorisedCommand(new DisplayInformationCommand()));
 
     private Command command;
     private User user;

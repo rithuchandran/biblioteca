@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class LibraryInitializer {
+class LibraryInitializer {
 
     List<LibraryObject> getLibraryObjects() {
         List<LibraryObject> libraryObjects = new ArrayList<>();
@@ -24,10 +24,10 @@ public class LibraryInitializer {
     }
 
     Set<User> getUsers() {
-        Set<User> Users = new HashSet<>();
-        Users.add(new User("123-4567", "password1"));
-        Users.add(new User("234-5678", "password2"));
-        Users.add(new User("345-6789", "password3"));
-        return Users;
+        Set<User> users = new HashSet<>();
+        users.add(new User("123-4567", "password1", "user1", "user1@mail.com", 1234567891));
+        users.add(new User("234-5678", "password2",  "user2", "user2@mail.com", 1234567892));
+        users.add(new User("345-6789", "password3",  "user3", "user3@mail.com", 1234567893));
+        return users;
     }
 }

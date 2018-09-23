@@ -8,14 +8,15 @@ import static biblioteca.model.Book.aBook;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ReturnCommandTest extends TestHelper {
+class ReturnCommandTest extends TestHelper {
     @DisplayName("Should call returnObject when user wants to checkout a book ")
     @Test
     void testDoActionForReturn() {
-        when(libraryInputDriver.getInput()).thenReturn("Harry Potter and the philosopher's stone");
+        when(libraryInputDriver.getInput()).thenReturn("Harry Potter");
+        Command command = new ReturnCommand(aBook());
 
-        Menu.RETURN_BOOK.doAction(libraryOutputDriver, libraryInputDriver, libraryMock);
-
-        verify(libraryMock).returnObject(aBook().withTitle("Harry Potter and the philosopher's stone"));
+        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+        verify(libraryOutputDriver).println("Enter the title of the book you want to return: ");
+        verify(libraryOutputDriver).println("That is not a valid book to return");
     }
 }

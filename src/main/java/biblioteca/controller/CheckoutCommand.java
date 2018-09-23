@@ -6,10 +6,10 @@ import biblioteca.model.User;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
-public class CheckoutCommand implements Command {
+class CheckoutCommand implements Command {
     private LibraryObject libraryObject;
 
-    public CheckoutCommand(LibraryObject libraryObject) {
+    CheckoutCommand(LibraryObject libraryObject) {
         this.libraryObject = libraryObject;
     }
 

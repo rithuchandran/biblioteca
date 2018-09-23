@@ -7,13 +7,18 @@ import org.junit.jupiter.api.Test;
 import static biblioteca.common.Constants.BOOK_COLUMNS;
 import static biblioteca.common.Constants.LINE;
 import static biblioteca.common.Constants.MOVIE_COLUMNS;
+import static biblioteca.model.Book.aBook;
+import static biblioteca.model.Movie.aMovie;
 import static org.mockito.Mockito.verify;
 
-public class ListCommandTest extends TestHelper {
+class ListCommandTest extends TestHelper {
     @DisplayName("Should display a list of books ")
     @Test
     void testDoActionForListingBooks() {
-        Menu.LIST_BOOKS.doAction(libraryOutputDriver, libraryInputDriver, library);
+        Command command = new ListCommand(aBook());
+
+        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+
         verify(libraryOutputDriver).println(BOOK_COLUMNS);
         verify(libraryOutputDriver).println(LINE);
         verify(libraryOutputDriver).println(book1);
@@ -25,7 +30,9 @@ public class ListCommandTest extends TestHelper {
     @DisplayName("Should display a list of movies ")
     @Test
     void testDoActionForListingMovies() {
-        Menu.LIST_MOVIES.doAction(libraryOutputDriver, libraryInputDriver, library);
+        Command command = new ListCommand(aMovie());
+
+        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
 
         verify(libraryOutputDriver).println(MOVIE_COLUMNS);
         verify(libraryOutputDriver).println(LINE);

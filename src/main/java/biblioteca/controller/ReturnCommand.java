@@ -9,7 +9,7 @@ import biblioteca.view.OutputDriver;
 public class ReturnCommand implements Command{
     private LibraryObject libraryObject;
 
-    public ReturnCommand(LibraryObject libraryObject) {
+    ReturnCommand(LibraryObject libraryObject) {
         this.libraryObject = libraryObject;
     }
 

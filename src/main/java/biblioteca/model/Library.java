@@ -57,4 +57,9 @@ public class Library {
     public boolean isLoggedIn(final User user) {
         return loggedInUserSet.contains(user);
     }
+
+    public String getInformation(final User user) {
+        ArrayList<User> users = new ArrayList<>(userSet);
+        return users.get(users.indexOf(user)).toString();
+    }
 }

@@ -9,7 +9,7 @@ import static biblioteca.model.Movie.aMovie;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class AuthorisedCommandTest extends TestHelper {
+class AuthorisedCommandTest extends TestHelper {
 
     @Test
     void testAuthorisedCommandForCheckoutWithoutLogin(){

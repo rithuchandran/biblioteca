@@ -16,10 +16,11 @@ class LibraryManagementSystemTest extends TestHelper {
         libraryManagementSystem = new LibraryManagementSystem(libraryOutputDriver, libraryInputDriver, libraryObjects, users);
     }
 
-    private void verifyWelcomeAndMenu() {
+    private void verifyWelcomeAndMenu(int n) {
         verify(libraryOutputDriver).println("Welcome to Biblioteca!");
-        verify(libraryOutputDriver).println("Select an option :");
-        verify(libraryOutputDriver).println("Press 1 to display list of books\n" +
+        verify(libraryOutputDriver,times(n)).println("Select an option :");
+        verify(libraryOutputDriver,times(n)).println("");
+        verify(libraryOutputDriver,times(n)).println("Press 1 to display list of books\n" +
                 "Press 2 to checkout a book\n" +
                 "Press 3 to return a book\n" +
                 "Press 4 to display list of movies\n" +
@@ -60,7 +61,7 @@ class LibraryManagementSystemTest extends TestHelper {
         when(libraryInputDriver.getInput()).thenReturn("1").thenReturn("0");
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(2);
         verifyBookListColumn();
         verify(libraryOutputDriver).println(book1);
         verify(libraryOutputDriver).println(book2);
@@ -73,7 +74,7 @@ class LibraryManagementSystemTest extends TestHelper {
         when(libraryInputDriver.getInput()).thenReturn("15").thenReturn("1").thenReturn("0");
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(3);
         verifyBookListColumn();
         verify(libraryOutputDriver).println(book1);
         verify(libraryOutputDriver).println(book2);
@@ -88,7 +89,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(4);
         verifyLogin();
         verify(libraryOutputDriver).println("Enter the title of the book you want to checkout: ");
         verify(libraryOutputDriver).println("Thank you! Enjoy the book");
@@ -108,7 +109,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(4);
         verifyLogin();
         verify(libraryOutputDriver).println("Enter the title of the book you want to checkout: ");
         verify(libraryOutputDriver).println("That book is not available");
@@ -128,7 +129,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(5);
         verifyLogin();
         verify(libraryOutputDriver).println("Enter the title of the book you want to checkout: ");
         verify(libraryOutputDriver).println("Thank you! Enjoy the book");
@@ -148,7 +149,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(5);
         verifyLogin();
         verify(libraryOutputDriver).println("Enter the title of the book you want to checkout: ");
         verify(libraryOutputDriver).println("Thank you! Enjoy the book");
@@ -169,7 +170,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(4);
         verifyLogin();
         verify(libraryOutputDriver).println("Enter the title of the book you want to return: ");
         verify(libraryOutputDriver).println("That is not a valid book to return");
@@ -187,7 +188,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(2);
         verifyMovieListColumn();
         verify(libraryOutputDriver).println(movie1);
         verify(libraryOutputDriver).println(movie2);
@@ -202,7 +203,7 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(4);
         verifyLogin();
         verify(libraryOutputDriver).println("Enter the title of the movie you want to checkout: ");
 
@@ -219,8 +220,22 @@ class LibraryManagementSystemTest extends TestHelper {
 
         libraryManagementSystem.start();
 
-        verifyWelcomeAndMenu();
+        verifyWelcomeAndMenu(2);
         verifyLogin();
     }
+
+    @DisplayName("Should display user information if the user is logged in")
+    @Test
+    void testUserInformation() {
+        when(libraryInputDriver.getInput()).thenReturn("7").thenReturn("123-4567").thenReturn("password1").thenReturn("8").thenReturn("0");
+
+        libraryManagementSystem.start();
+
+        verifyWelcomeAndMenu(3);
+        verifyLogin();
+        verify(libraryOutputDriver).println("Name: user1\nEmail address: user1@mail.com\nPhone number: 1234567891");
+    }
+
+
 
 }

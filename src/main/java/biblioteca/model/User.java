@@ -7,11 +7,27 @@ import java.util.Set;
 
 public class User {
     private final String libraryNumber;
-    private final String password;
+    private String password;
+    private String name;
+    private String email;
+    private long phoneNumber;
 
-    public User(String libraryNumber, String password) {
+    public User(String libraryNumber, String password, String name, String email, long phoneNumber) {
         this.libraryNumber = libraryNumber;
         this.password = password;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(String libraryNumber, String password) {
+        this(libraryNumber, password, "default_name", "default_mail", 0);
+    }
+
+    boolean isRightPassword(final Set<User> users) {
+        final List<User> userList = new ArrayList<>(users);
+        int index = userList.indexOf(this);
+        return password.equals(userList.get(index).password);
     }
 
     @Override
@@ -27,9 +43,8 @@ public class User {
         return Objects.equals(libraryNumber, user.libraryNumber);
     }
 
-    boolean isRightPassword(final Set<User> users) {
-        final List<User> userList = new ArrayList<>(users);
-        int index = userList.indexOf(this);
-        return password.equals(userList.get(index).password);
+    @Override
+    public String toString() {
+        return String.format("Name: %s\nEmail address: %s\nPhone number: %s", name, email, phoneNumber);
     }
 }
