@@ -11,15 +11,15 @@ import static org.mockito.Mockito.when;
 class LogoutCommandTest extends TestHelper {
     @DisplayName("should logout a logged in user")
     @Test
-    void testLogout(){
+    void testLogout() {
         when(libraryInputDriver.getInput()).thenReturn("123-4567").thenReturn("password1");
         Command loginCommand = new LoginCommand();
         Command logoutCommand = new LogoutCommand();
 
-        loginCommand.doAction(libraryOutputDriver,libraryInputDriver,library);
+        loginCommand.doAction(libraryOutputDriver, libraryInputDriver, library);
         assertTrue(library.isUserLoggedIn());
 
-        logoutCommand.doAction(libraryOutputDriver,libraryInputDriver,library);
+        logoutCommand.doAction(libraryOutputDriver, libraryInputDriver, library);
         assertFalse(library.isUserLoggedIn());
     }
 }

@@ -239,15 +239,15 @@ class LibraryManagementSystemTest extends TestHelper {
 
     @DisplayName("Should logout user1 and let user2 to login")
     @Test
-    void testLogoutAndLogin(){
+    void testLogoutAndLogin() {
         when(libraryInputDriver.getInput()).thenReturn("7").thenReturn("123-4567").thenReturn("password1").thenReturn("9").
                 thenReturn("7").thenReturn("234-5678").thenReturn("password2").thenReturn("8").thenReturn("0");
 
         libraryManagementSystem.start();
 
         verifyWelcomeAndMenu(5);
-        verify(libraryOutputDriver,times(2)).print("Enter library number: ");
-        verify(libraryOutputDriver,times(2)).print("Enter password: ");
+        verify(libraryOutputDriver, times(2)).print("Enter library number: ");
+        verify(libraryOutputDriver, times(2)).print("Enter password: ");
 
         verify(libraryOutputDriver).println("You are now logged out");
         verify(libraryOutputDriver).println("Name: user2\nEmail address: user2@mail.com\nPhone number: 1234567892");
