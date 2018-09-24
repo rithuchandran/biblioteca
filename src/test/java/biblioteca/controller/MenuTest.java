@@ -38,14 +38,14 @@ class MenuTest extends TestHelper {
         verify(libraryOutputDriver).println(book3);
 
     }
-    @DisplayName("should print success message for successful login")
+    @DisplayName("should print success message for successful authenticate")
     @Test
     void testLogin(){
         when(libraryInputDriver.getInput()).thenReturn("123-4567").thenReturn("password1");
 
         Menu.LOGIN.doAction(libraryOutputDriver,libraryInputDriver,library);
 
-        assertTrue(library.isLoggedIn(user));
+        assertTrue(library.isUserLoggedIn());
         verify(libraryOutputDriver).println("You are now logged in");
     }
     @DisplayName("Should call returnObject when user wants to checkout a book ")

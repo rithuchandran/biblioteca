@@ -21,16 +21,13 @@ public enum Menu {
     DISPLAY_INFORMATION(new AuthorisedCommand(new DisplayInformationCommand()));
 
     private Command command;
-    private User user;
     Menu(Command command){
         this.command = command;
-        user = new User("","");
     }
     void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library){
-        this.command.doAction(libraryOutputDriver,libraryInputDriver,library,LOGIN.user);
-    }
-
-    void setUser(User user) {
-        this.user = user;
+        this.command.doAction(libraryOutputDriver,libraryInputDriver,library);
     }
 }
+
+
+

@@ -15,7 +15,7 @@ class ReturnCommandTest extends TestHelper {
         when(libraryInputDriver.getInput()).thenReturn("Harry Potter");
         Command command = new ReturnCommand(aBook());
 
-        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+        command.doAction(libraryOutputDriver,libraryInputDriver,library);
         verify(libraryOutputDriver).println("Enter the title of the book you want to return: ");
         verify(libraryOutputDriver).println("That is not a valid book to return");
     }

@@ -21,6 +21,11 @@ public class Book implements LibraryObject {
     }
 
     @Override
+    public LibraryObject withTitle(String title) {
+        return new Book(title,"",0);
+    }
+
+    @Override
     public String getTitle(List<LibraryObject> availableList) {
         StringBuilder bookTitles = new StringBuilder();
         for (LibraryObject aBook : availableList) {
@@ -39,11 +44,6 @@ public class Book implements LibraryObject {
     @Override
     public String getType() {
         return "book";
-    }
-
-    @Override
-    public LibraryObject withTitle(String title) {
-        return new Book(title,"",0);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class LibraryManagementSystem {
     private final InputDriver libraryInputDriver;
     private final Library library;
 
-    public LibraryManagementSystem(OutputDriver outputDriver, InputDriver libraryInputDriver, List<LibraryObject> libraryObjects, Set<User> users) {
+    public LibraryManagementSystem(OutputDriver outputDriver, InputDriver libraryInputDriver, List<LibraryObject> libraryObjects, List<User> users) {
         libraryOutputDriver = outputDriver;
         this.libraryInputDriver = libraryInputDriver;
         library = new Library(libraryObjects, users);

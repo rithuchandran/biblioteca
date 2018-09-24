@@ -1,23 +1,18 @@
 package biblioteca.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Library {
 
     private List<LibraryObject> checkedOutList;
     private List<LibraryObject> availableList;
-    private Set<User> userSet;
-    private Set<User> loggedInUserSet;
+    private List<User> userList;
+    private User currentUser;
 
-
-    public Library(List<LibraryObject> libraryObjects, Set<User> users) {
+    public Library(List<LibraryObject> libraryObjects, List<User> users) {
         availableList = new ArrayList<>(libraryObjects);
-        this.userSet = users;
+        this.userList = users;
         checkedOutList = new ArrayList<>();
-        loggedInUserSet = new HashSet<>();
     }
 
     public String getTitles(final LibraryObject libraryObject) {
@@ -30,6 +25,7 @@ public class Library {
         }
         final int index = availableList.indexOf(libraryObject);
         checkedOutList.add(availableList.get(index));
+        currentUser.checkOut(libraryObject);
         return availableList.remove(libraryObject);
     }
 
@@ -40,26 +36,26 @@ public class Library {
         final int index = checkedOutList.indexOf(libraryObject);
         availableList.add(checkedOutList.get(index));
         checkedOutList.remove(checkedOutList.get(index));
+        currentUser.returnObject(libraryObject);
         return true;
     }
 
-    public boolean login(final User user) {
-        if (!userSet.contains(user)) {
+    public boolean authenticate(final User user) {
+        if (!userList.contains(user)) {
             return false;
         }
-        if (!user.isRightPassword(userSet)) {
+        if (!user.isRightPassword(userList)) {
             return false;
         }
-        loggedInUserSet.add(user);
+        currentUser = userList.get(userList.indexOf(user));
         return true;
     }
 
-    public boolean isLoggedIn(final User user) {
-        return loggedInUserSet.contains(user);
+    public boolean isUserLoggedIn() {
+        return currentUser != null;
     }
 
-    public String getInformation(final User user) {
-        ArrayList<User> users = new ArrayList<>(userSet);
-        return users.get(users.indexOf(user)).toString();
+    public String getInformation() {
+        return currentUser.toString();
     }
 }

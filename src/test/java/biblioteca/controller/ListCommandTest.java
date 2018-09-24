@@ -17,7 +17,7 @@ class ListCommandTest extends TestHelper {
     void testDoActionForListingBooks() {
         Command command = new ListCommand(aBook());
 
-        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+        command.doAction(libraryOutputDriver,libraryInputDriver,library);
 
         verify(libraryOutputDriver).println(BOOK_COLUMNS);
         verify(libraryOutputDriver).println(LINE);
@@ -32,7 +32,7 @@ class ListCommandTest extends TestHelper {
     void testDoActionForListingMovies() {
         Command command = new ListCommand(aMovie());
 
-        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+        command.doAction(libraryOutputDriver,libraryInputDriver,library);
 
         verify(libraryOutputDriver).println(MOVIE_COLUMNS);
         verify(libraryOutputDriver).println(LINE);

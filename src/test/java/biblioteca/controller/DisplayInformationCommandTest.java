@@ -1,7 +1,6 @@
 package biblioteca.controller;
 
 import biblioteca.TestHelper;
-import biblioteca.model.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,12 @@ class DisplayInformationCommandTest extends TestHelper {
     @Test
     void testDoActionForDisplayInformation2() {
         Command command = new DisplayInformationCommand();
-        command.doAction(libraryOutputDriver, libraryInputDriver, library, user);
+        Command commandLogin = new LoginCommand();
+        when(libraryInputDriver.getInput()).thenReturn("123-4567").thenReturn("password1");
+
+        commandLogin.doAction(libraryOutputDriver,libraryInputDriver,library);
+        command.doAction(libraryOutputDriver, libraryInputDriver, library);
+
         verify(libraryOutputDriver).println("Name: user1\nEmail address: user1@mail.com\nPhone number: 1234567891");
     }
 }

@@ -16,7 +16,6 @@ import static org.mockito.Mockito.mock;
 public class TestHelper {
     protected OutputDriver libraryOutputDriver;
     protected InputDriver libraryInputDriver;
-    protected Library libraryMock;
     protected Library library;
     protected List<LibraryObject> libraryObjects;
     protected String book1 = "";
@@ -26,18 +25,15 @@ public class TestHelper {
     protected String movie1 = "";
     protected String movie2 = "";
     protected String movie3 = "";
-    protected Set<User> users = new HashSet<>();
-    protected User user;
+    protected List<User> users = new ArrayList<>();
 
 
     @BeforeEach
     protected void initialize() {
         libraryOutputDriver = mock(OutputDriver.class);
         libraryInputDriver = mock(LibraryInputDriver.class);
-        libraryMock = mock(Library.class);
         libraryObjects = new ArrayList<>();
-        user = new User("123-4567", "password1", "user1", "user1@mail.com", 1234567891);
-        users.add(user);
+        users.add(new User("123-4567", "password1", "user1", "user1@mail.com", 1234567891));
         users.add(new User("234-5678", "password2",  "user2", "user2@mail.com", 1234567892));
         users.add(new User("345-6789", "password3",  "user3", "user3@mail.com", 1234567893));
 

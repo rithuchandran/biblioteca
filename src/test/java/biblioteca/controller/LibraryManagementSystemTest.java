@@ -18,15 +18,15 @@ class LibraryManagementSystemTest extends TestHelper {
 
     private void verifyWelcomeAndMenu(int n) {
         verify(libraryOutputDriver).println("Welcome to Biblioteca!");
-        verify(libraryOutputDriver,times(n)).println("Select an option :");
-        verify(libraryOutputDriver,times(n)).println("");
-        verify(libraryOutputDriver,times(n)).println("Press 1 to display list of books\n" +
+        verify(libraryOutputDriver, times(n)).println("Select an option :");
+        verify(libraryOutputDriver, times(n)).println("");
+        verify(libraryOutputDriver, times(n)).println("Press 1 to display list of books\n" +
                 "Press 2 to checkout a book\n" +
                 "Press 3 to return a book\n" +
                 "Press 4 to display list of movies\n" +
                 "Press 5 to checkout a movie\n" +
                 "Press 6 to return a movie\n" +
-                "Press 7 to login\n" +
+                "Press 7 to authenticate\n" +
                 "Press 8 to display user information\n" +
                 "Press 0 to quit!\n");
     }
@@ -213,7 +213,7 @@ class LibraryManagementSystemTest extends TestHelper {
         verify(libraryOutputDriver, never()).println(movie1);
     }
 
-    @DisplayName("Should allow registered user with valid credentials to login")
+    @DisplayName("Should allow registered user with valid credentials to authenticate")
     @Test
     void testValidUserLogin() {
         when(libraryInputDriver.getInput()).thenReturn("7").thenReturn("123-4567").thenReturn("password1").thenReturn("0");
@@ -235,7 +235,4 @@ class LibraryManagementSystemTest extends TestHelper {
         verifyLogin();
         verify(libraryOutputDriver).println("Name: user1\nEmail address: user1@mail.com\nPhone number: 1234567891");
     }
-
-
-
 }

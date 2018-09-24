@@ -1,9 +1,6 @@
 package biblioteca.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class User {
     private final String libraryNumber;
@@ -11,6 +8,7 @@ public class User {
     private String name;
     private String email;
     private long phoneNumber;
+    private List<LibraryObject> checkedOutList = new ArrayList<>();
 
     public User(String libraryNumber, String password, String name, String email, long phoneNumber) {
         this.libraryNumber = libraryNumber;
@@ -24,7 +22,15 @@ public class User {
         this(libraryNumber, password, "default_name", "default_mail", 0);
     }
 
-    boolean isRightPassword(final Set<User> users) {
+    void checkOut(LibraryObject libraryObject){
+        checkedOutList.add(libraryObject);
+    }
+
+    void returnObject(LibraryObject libraryObject){
+        checkedOutList.remove(libraryObject);
+    }
+
+    boolean isRightPassword(final Collection<User> users) {
         final List<User> userList = new ArrayList<>(users);
         int index = userList.indexOf(this);
         return password.equals(userList.get(index).password);
@@ -47,4 +53,7 @@ public class User {
     public String toString() {
         return String.format("Name: %s\nEmail address: %s\nPhone number: %s", name, email, phoneNumber);
     }
+
+
+
 }

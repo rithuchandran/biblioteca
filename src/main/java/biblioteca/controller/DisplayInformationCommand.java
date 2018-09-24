@@ -7,7 +7,7 @@ import biblioteca.view.OutputDriver;
 
 public class DisplayInformationCommand implements Command {
     @Override
-    public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library, User user) {
-        libraryOutputDriver.println(library.getInformation(user));
+    public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
+        libraryOutputDriver.println(library.getInformation());
     }
 }

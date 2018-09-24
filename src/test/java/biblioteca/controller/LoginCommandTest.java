@@ -10,27 +10,27 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class LoginCommandTest extends TestHelper {
-    @DisplayName("should print success message for successful login")
+    @DisplayName("should print success message for successful authenticate")
     @Test
     void testLogin() {
         when(libraryInputDriver.getInput()).thenReturn("123-4567").thenReturn("password1");
         Command command = new LoginCommand();
 
-        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+        command.doAction(libraryOutputDriver,libraryInputDriver,library);
 
-        assertTrue(library.isLoggedIn(user));
+        assertTrue(library.isUserLoggedIn());
         verify(libraryOutputDriver).println("You are now logged in");
     }
 
-    @DisplayName("should print message for unsuccessful login")
+    @DisplayName("should print message for unsuccessful authenticate")
     @Test
     void testUnsuccessfulLogin() {
         when(libraryInputDriver.getInput()).thenReturn("123-4670").thenReturn("password1");
         Command command = new LoginCommand();
 
-        command.doAction(libraryOutputDriver,libraryInputDriver,library,user);
+        command.doAction(libraryOutputDriver,libraryInputDriver,library);
 
-        assertFalse(library.isLoggedIn(user));
+        assertFalse(library.isUserLoggedIn());
         verify(libraryOutputDriver).println("Login unsuccessful! Incorrect library number/ password");
     }
 }
