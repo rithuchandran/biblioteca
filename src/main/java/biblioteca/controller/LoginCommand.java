@@ -10,6 +10,9 @@ import static biblioteca.common.Constants.*;
 public class LoginCommand implements Command {
     @Override
     public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
+        if (library.isUserLoggedIn()) {
+            libraryOutputDriver.println(USER_ALREADY_LOGGED_IN_MESSAGE);
+        }
         libraryOutputDriver.print(ENTER_LIBRARY_NUMBER_MESSAGE);
         String libraryNumber = libraryInputDriver.getInput();
         libraryOutputDriver.print(ENTER_PASSWORD_MESSAGE);

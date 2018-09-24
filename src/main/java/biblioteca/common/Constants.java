@@ -28,6 +28,7 @@ public class Constants {
     public static final String TITLE_NOT_AVAILABLE_FOR_RETURN_MESSAGE = "That is not a valid %s to return";
     public static final String SUCCESSFUL_RETURN_MESSAGE = "Thank you for returning the %s";
 
+    public static final String USER_ALREADY_LOGGED_IN_MESSAGE = "User is already logged in";
     public static final String ENTER_LIBRARY_NUMBER_MESSAGE = "Enter library number: ";
     public static final String ENTER_PASSWORD_MESSAGE = "Enter password: ";
     public static final String UNSUCCESSFUL_LOGIN_MESSAGE = "Login unsuccessful! Incorrect library number/ password";
