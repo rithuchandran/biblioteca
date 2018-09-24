@@ -39,7 +39,7 @@ public class LibraryManagementSystem {
         do {
             printMenu();
             option = Integer.valueOf(libraryInputDriver.getInput());
-            while (option<0 || option > 8){
+            while (option < 0 || option > 8) {
                 libraryOutputDriver.println("Select a valid option!");
                 printMenu();
                 option = Integer.valueOf(libraryInputDriver.getInput());

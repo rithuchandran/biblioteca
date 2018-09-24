@@ -22,23 +22,22 @@ public class User {
         this(libraryNumber, password, "default_name", "default_mail", 0);
     }
 
-    void checkOut(LibraryObject libraryObject){
+    void checkOut(LibraryObject libraryObject) {
         checkedOutList.add(libraryObject);
     }
 
-    void returnObject(LibraryObject libraryObject){
+    void returnObject(LibraryObject libraryObject) {
         checkedOutList.remove(libraryObject);
+    }
+
+    boolean contains(LibraryObject libraryObject) {
+        return checkedOutList.contains(libraryObject);
     }
 
     boolean isRightPassword(final Collection<User> users) {
         final List<User> userList = new ArrayList<>(users);
         int index = userList.indexOf(this);
         return password.equals(userList.get(index).password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(libraryNumber);
     }
 
     @Override
@@ -53,7 +52,5 @@ public class User {
     public String toString() {
         return String.format("Name: %s\nEmail address: %s\nPhone number: %s", name, email, phoneNumber);
     }
-
-
 
 }

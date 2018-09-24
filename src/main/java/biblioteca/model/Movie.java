@@ -24,6 +24,11 @@ public class Movie implements LibraryObject {
     }
 
     @Override
+    public LibraryObject withTitle(String title) {
+        return new Movie(title, "", 0, 0);
+    }
+
+    @Override
     public String getTitle(final List<LibraryObject> availableList) {
         StringBuilder movieTitles = new StringBuilder();
         for (LibraryObject movie : availableList) {
@@ -42,11 +47,6 @@ public class Movie implements LibraryObject {
     @Override
     public String getType() {
         return "movie";
-    }
-
-    @Override
-    public LibraryObject withTitle(String title) {
-        return new Movie(title,"",0,0);
     }
 
     @Override

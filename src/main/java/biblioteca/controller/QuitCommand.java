@@ -5,7 +5,7 @@ import biblioteca.model.User;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
-public class QuitCommand implements Command{
+public class QuitCommand implements Command {
     @Override
     public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
     }

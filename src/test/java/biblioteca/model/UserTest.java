@@ -1,14 +1,15 @@
 package biblioteca.model;
 
+import biblioteca.TestHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
     @DisplayName("should expect two users with same library number and password to be equal")
@@ -49,11 +50,11 @@ public class UserTest {
     @DisplayName("should return true for correct password")
     @Test
     void testCorrectPassword(){
-        Set<User> userSet = new HashSet<>();
+        List<User> userList = new ArrayList<>();
         User user1 = new User("123-1234","abc");
-        userSet.add(user1);
+        userList.add(user1);
 
-        assertTrue(user1.isRightPassword(userSet));
+        assertTrue(user1.isRightPassword(userList));
     }
 
     @DisplayName("should return user information containing name, email & phone number")
@@ -63,6 +64,30 @@ public class UserTest {
 
         String result = "Name: userA\nEmail address: emailid@blah.com\nPhone number: 1111111111";
         assertEquals(result,user1.toString());
+    }
+
+    @DisplayName("should add the book/movie to the user after checkout")
+    @Test
+    void testCheckout(){
+        User user1 = new User("123-1234","abc");
+        LibraryObject movie = Movie.aMovie().withTitle("Up");
+
+        user1.checkOut(movie);
+
+        assertTrue(user1.contains(movie));
+    }
+
+    @DisplayName("should remove the book/movie from the user after returning")
+    @Test
+    void testReturn(){
+        User user1 = new User("123-1234","abc");
+        LibraryObject movie = Movie.aMovie().withTitle("Up");
+
+        user1.checkOut(movie);
+        assertTrue(user1.contains(movie));
+
+        user1.returnObject(movie);
+        assertFalse(user1.contains(movie));
     }
 
 }

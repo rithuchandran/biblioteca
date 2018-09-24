@@ -30,7 +30,7 @@ public class Library {
     }
 
     public boolean returnObject(final LibraryObject libraryObject) {
-        if (!checkedOutList.contains(libraryObject)) {
+        if (!(checkedOutList.contains(libraryObject) && currentUser.contains(libraryObject))) {
             return false;
         }
         final int index = checkedOutList.indexOf(libraryObject);

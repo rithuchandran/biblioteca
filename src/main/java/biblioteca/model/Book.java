@@ -22,7 +22,7 @@ public class Book implements LibraryObject {
 
     @Override
     public LibraryObject withTitle(String title) {
-        return new Book(title,"",0);
+        return new Book(title, "", 0);
     }
 
     @Override

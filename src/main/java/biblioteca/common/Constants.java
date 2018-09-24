@@ -13,7 +13,7 @@ public class Constants {
             "Press 4 to display list of movies\n" +
             "Press 5 to checkout a movie\n" +
             "Press 6 to return a movie\n" +
-            "Press 7 to authenticate\n" +
+            "Press 7 to login\n" +
             "Press 8 to display user information\n" +
             "Press 0 to quit!\n";
 }
