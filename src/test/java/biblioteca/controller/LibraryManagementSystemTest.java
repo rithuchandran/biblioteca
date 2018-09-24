@@ -26,8 +26,9 @@ class LibraryManagementSystemTest extends TestHelper {
                 "Press 4 to display list of movies\n" +
                 "Press 5 to checkout a movie\n" +
                 "Press 6 to return a movie\n" +
-                "Press 7 to authenticate\n" +
+                "Press 7 to login\n" +
                 "Press 8 to display user information\n" +
+                "Press 9 to logout\n" +
                 "Press 0 to quit!\n");
     }
 
@@ -234,5 +235,22 @@ class LibraryManagementSystemTest extends TestHelper {
         verifyWelcomeAndMenu(3);
         verifyLogin();
         verify(libraryOutputDriver).println("Name: user1\nEmail address: user1@mail.com\nPhone number: 1234567891");
+    }
+
+    @DisplayName("Should logout user1 and let user2 to login")
+    @Test
+    void testLogoutAndLogin(){
+        when(libraryInputDriver.getInput()).thenReturn("7").thenReturn("123-4567").thenReturn("password1").thenReturn("9").
+                thenReturn("7").thenReturn("234-5678").thenReturn("password2").thenReturn("8").thenReturn("0");
+
+        libraryManagementSystem.start();
+
+        verifyWelcomeAndMenu(5);
+        verify(libraryOutputDriver,times(2)).print("Enter library number: ");
+        verify(libraryOutputDriver,times(2)).print("Enter password: ");
+
+        verify(libraryOutputDriver).println("You are now logged out");
+        verify(libraryOutputDriver).println("Name: user2\nEmail address: user2@mail.com\nPhone number: 1234567892");
+
     }
 }

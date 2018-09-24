@@ -7,7 +7,6 @@ import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
 import java.util.List;
-import java.util.Set;
 
 import static biblioteca.common.Constants.*;
 
@@ -39,8 +38,8 @@ public class LibraryManagementSystem {
         do {
             printMenu();
             option = Integer.valueOf(libraryInputDriver.getInput());
-            while (option < 0 || option > 8) {
-                libraryOutputDriver.println("Select a valid option!");
+            while (option < 0 || option > 9) {
+                libraryOutputDriver.println(INVALID_OPTION_MESSAGE);
                 printMenu();
                 option = Integer.valueOf(libraryInputDriver.getInput());
             }

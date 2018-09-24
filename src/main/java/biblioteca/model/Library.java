@@ -58,4 +58,8 @@ public class Library {
     public String getInformation() {
         return currentUser.toString();
     }
+
+    public void logOutUser() {
+        currentUser = null;
+    }
 }

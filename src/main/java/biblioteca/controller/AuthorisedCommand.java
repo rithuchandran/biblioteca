@@ -4,6 +4,8 @@ import biblioteca.model.Library;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
+import static biblioteca.common.Constants.USER_NOT_LOGGED_IN_MESSAGE;
+
 public class AuthorisedCommand implements Command {
     private Command command;
 
@@ -14,7 +16,7 @@ public class AuthorisedCommand implements Command {
     @Override
     public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
         if (!library.isUserLoggedIn()){
-            libraryOutputDriver.println("Please login first!");
+            libraryOutputDriver.println(USER_NOT_LOGGED_IN_MESSAGE);
             return;
         }
         command.doAction(libraryOutputDriver,libraryInputDriver,library);

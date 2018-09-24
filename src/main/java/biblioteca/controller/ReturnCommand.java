@@ -5,6 +5,8 @@ import biblioteca.model.LibraryObject;
 import biblioteca.view.InputDriver;
 import biblioteca.view.OutputDriver;
 
+import static biblioteca.common.Constants.*;
+
 public class ReturnCommand implements Command {
     private LibraryObject libraryObject;
 
@@ -14,12 +16,12 @@ public class ReturnCommand implements Command {
 
     @Override
     public void doAction(OutputDriver libraryOutputDriver, InputDriver libraryInputDriver, Library library) {
-        libraryOutputDriver.println(String.format("Enter the title of the %s you want to return: ", libraryObject.getType()));
+        libraryOutputDriver.println(String.format(ENTER_THE_TITLE_YOU_WANT_TO_RETURN_MESSAGE, libraryObject.getType()));
         String libraryObjectToBeReturned = libraryInputDriver.getInput();
         if (!library.returnObject(libraryObject.withTitle(libraryObjectToBeReturned))) {
-            libraryOutputDriver.println(String.format("That is not a valid %s to return", libraryObject.getType()));
+            libraryOutputDriver.println(String.format(TITLE_NOT_AVAILABLE_FOR_RETURN_MESSAGE, libraryObject.getType()));
             return;
         }
-        libraryOutputDriver.println(String.format("Thank you for returning the %s", libraryObject.getType()));
+        libraryOutputDriver.println(String.format(SUCCESSFUL_RETURN_MESSAGE, libraryObject.getType()));
     }
 }
