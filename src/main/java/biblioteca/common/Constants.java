@@ -14,9 +14,9 @@ public class Constants {
             "Press 5 to checkout a movie\n" +
             "Press 6 to return a movie\n" +
             "Press 7 to login\n" +
-            "Press 8 to display user information\n" +
-            "Press 9 to logout\n" +
             "Press 0 to quit!\n";
+    public static final String LOGGED_IN_MENU = "Press 8 to display user information\n" +
+            "Press 9 to logout\n" ;
     public static final String INVALID_OPTION_MESSAGE = "Select a valid option!";
     public static final String USER_NOT_LOGGED_IN_MESSAGE = "Please login first!";
 

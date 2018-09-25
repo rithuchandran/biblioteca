@@ -30,7 +30,10 @@ public class LibraryManagementSystem {
     private void printMenu() {
         libraryOutputDriver.println("");
         libraryOutputDriver.println(MENU_MESSAGE);
-        libraryOutputDriver.println(MENU);
+        libraryOutputDriver.print(MENU);
+        if(library.isUserLoggedIn()){
+            libraryOutputDriver.print(LOGGED_IN_MENU);
+        }
     }
 
     private void doMenuAction() {

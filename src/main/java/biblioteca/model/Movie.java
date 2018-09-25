@@ -59,7 +59,7 @@ public class Movie implements LibraryObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(name, movie.name);
+        return Objects.equals(name.toLowerCase(), movie.name.toLowerCase());
     }
 
 

@@ -27,9 +27,12 @@ class LibraryManagementSystemTest extends TestHelper {
                 "Press 5 to checkout a movie\n" +
                 "Press 6 to return a movie\n" +
                 "Press 7 to login\n" +
-                "Press 8 to display user information\n" +
-                "Press 9 to logout\n" +
                 "Press 0 to quit!\n");
+    }
+
+    private void verifyLoggedInMenu(int n){
+        verify(libraryOutputDriver, times(n)).println("Press 8 to display user information\n" +
+                "Press 9 to logout\n") ;
     }
 
     private void verifyBookListColumn() {

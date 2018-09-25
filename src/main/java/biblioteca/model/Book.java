@@ -56,7 +56,7 @@ public class Book implements LibraryObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(title, book.title);
+        return Objects.equals(title.toLowerCase(), book.title.toLowerCase());
     }
 
 
